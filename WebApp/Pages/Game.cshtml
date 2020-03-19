@@ -1,0 +1,200 @@
+@page
+@model Game
+@Html.AntiForgeryToken()
+
+@{
+    Layout = Layout;
+    Model.LoadGameBoards();
+}
+
+<link rel="stylesheet" href="~/css/game.css" />
+<link rel="stylesheet" href="~/css/dialog.css" />
+
+<form method="post">
+    <div id="settingsDiv" class="dialog">
+        <table id="settingsTable" class="dialogTable">
+            <tbody>
+            <tr class="dialog-title">
+                <td id="settingsTitle" style="padding: 5px">Settings</td>
+                <td colspan="3" style="text-align: right; padding: 0">
+                    <span class="close">✖</span>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Height</td>
+                <td>Width</td>
+                <td>Mines</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="easy" name="Mode" value="easy"/>
+                    <strong>Easy</strong>
+                </td>
+                <td>9</td>
+                <td>9</td>
+                <td>10</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="intermediate" name="Mode" value="intermediate"/>
+                    <strong>Intermediate</strong>
+                </td>
+                <td>16</td>
+                <td>16</td>
+                <td>40</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="advanced" name="Mode" value="advanced"/>
+                    <strong>Advanced</strong>
+                </td>
+                <td>24</td>
+                <td>24</td>
+                <td>90</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="custom" name="Mode" value="custom"/>
+                    <strong>Custom</strong>
+                </td>
+                <td>
+                    <input type="text" value="20" name="Height" id="customHeight" class="dialogTextInput" />
+                </td>
+                <td>
+                    <input type="text" value="30" name="Width" id="customWidth" class="dialogTextInput" />
+                </td>
+                <td>
+                    <input type="text" value="20" name="Mines" id="customMines" class="dialogTextInput" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <input asp-page-handler="NewGame" type="submit" id="submitSettings" class="submit" value="New Game" style="vertical-align: middle"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" hidden="hidden" id="heightError">
+                    <span class="text-danger">Height must be between 1 and 40</span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" hidden="hidden" id="widthError">
+                    <span class="text-danger">Width must be between 1 and 40</span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" hidden="hidden" id="minesError">
+                    <span class="text-danger">Mines must be at least 0</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</form>
+
+<form method="post">
+    <div id ="saveDiv" class="dialog">
+        <table class="dialogTable">
+            <tbody>
+            <tr class="dialog-title">
+                <td id="saveTitle" style="padding: 5px">Save</td>
+                <td style="text-align: right; padding: 0">
+                    <span class="close">✖</span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <label>Game Name</label>
+                    <input id="saveGameName" type="text" value="" class="form-control"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input onclick="saveGame()" type="button" class="submit" value="Save Game" style="vertical-align: middle"/>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</form>
+
+<form method="post">
+    <div id="loadDiv" class="dialog">
+        <table class="dialogTable">
+            <tbody>
+            <tr class="dialog-title">
+                <td id="loadTitle" style="padding: 5px">Load</td>
+                <td style="text-align: right; padding: 0">
+                    <span class="close">✖</span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <label>Game Name</label>
+                    <select name="boardId" class="form-control">
+                        @foreach (var gameBoard in Model.GameBoards)
+                        {
+                            <option value="@gameBoard.GameBoardId" name="@gameBoard.GameBoardId">@gameBoard.BoardName</option>
+                        }
+                    </select>
+                </td>
+            </tr>
+            <tr style="vertical-align: middle">
+                <td>
+                    <input asp-page-handler="load" type="submit" class="submit" value="Load Game" name="load"/>
+                </td>
+                <td style="text-align: right">
+                    <input onclick="deleteGame()" type="button" class="submit" value="Delete Game" name="delete"/>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</form>
+
+<div id="board"></div>
+
+<script src="~/js/cell.js"></script>
+<script src="~/js/gameBoard.js"></script>
+<script src="~/js/game.js"></script>
+
+@if (Model.GameBoard != null)
+{
+    <script>
+            json = JSON.parse('@Html.Raw(Model.GameBoard.JsonString)');
+            GameBoard = json;
+    </script>
+}
+else if (!string.IsNullOrEmpty(Model.Mode))
+{
+    switch (Model.Mode)
+    {
+        case "easy":
+            <script>gameBoard(9, 9, 10)</script>
+            break;
+        case "intermediate":
+            <script>gameBoard(16, 16, 40)</script>
+            break;
+        case "advanced":
+            <script>gameBoard(24, 24, 90)</script>
+            break;
+        case "custom":
+            if (Model.Height != null
+                && Model.Width != null
+                && Model.Mines != null)
+            {
+                <script>gameBoard(@Model.Height, @Model.Width, @Model.Mines)</script>
+            }
+            break;
+    }
+}
+else
+{
+    <script>gameBoard(9, 9, 10)</script>
+}
+
+<script>loadBoard()</script>
+<script src="~/js/dialog.js"></script>
+<script src="~/js/ajaxCall.js"></script>
+<script>setCellAttributes()</script>

@@ -1,0 +1,45 @@
+.dialog {
+    display: none; /* Hidden by default */
+    position: absolute;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+}
+
+.dialogTable {
+    width: 300px; /* Full width */
+    height: 200px; /* Full height */
+    margin: 0 auto;
+    border: 1px solid #444;
+    font-size: 14px;
+    text-align: left;
+    background-color: rgb(250,250,250); /* Fallback color */
+}
+
+.dialog-title {
+    /*vertical-align: top;*/
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    font-size: 20px;
+    font-weight: bold;
+    top: 0;
+    right: 0;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.dialogTextInput {
+    width: 30px;
+    height: 20px;
+    font-size: 12px;
+}

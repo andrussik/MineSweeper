@@ -1,0 +1,153 @@
+html {
+    height: 100%;
+}
+
+body {
+    background-color: #fff;
+    height: 100%;
+}
+
+td {
+    padding: 5px;
+}
+
+#restartButton {
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    margin: 0 auto;
+    width: 25px;
+    height: 25px;
+    background-image: url("icons/game-die.png");
+    background-size: cover;
+}
+
+#board {
+    text-align: center;
+}
+
+#boardRow {
+    height: 20px;
+    width: 100%;
+}
+
+#optionsDiv {
+    height: 20px;
+    font-size: 14px;
+    margin: 0 auto;
+    text-align: center;
+    white-space: nowrap;
+}
+
+div[id="boardHead"] {
+    background-color: #aaaaaa;
+    background-size: 100%;
+    height: 80px;
+    border-style: outset;
+    margin: 0 auto;
+}
+
+div[class="unRevealed"] {
+    background-image: url("icons/Mine2.9tileunpressed.png");
+    background-size: 100%;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+}
+
+div[class="open0"] {
+    background-image: url("icons/Mine2.9tileblank.png");
+    background-size: 100%;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+}
+
+div[class="open1"] {
+    background-image: url("icons/Mine2.9tile1.png");
+    background-size: 100%;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+}
+
+div[class="open2"] {
+    background-image: url("icons/Mine2.9tile2.png");
+    background-size: 100%;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+}
+
+div[class="open3"] {
+    background-image: url("icons/Mine2.9tile3.png");
+    background-size: 100%;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+}
+
+div[class="open4"] {
+    background-image: url("icons/Mine2.9tile4.png");
+    background-size: 100%;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+}
+
+div[class="open5"] {
+    background-image: url("icons/Mine2.9tile5.png");
+    background-size: 100%;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+}
+
+div[class="open6"] {
+    background-image: url("icons/Mine2.9tile6.png");
+    background-size: 100%;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+}
+
+div[class="open7"] {
+    background-image: url("icons/Mine2.9tile7.png");
+    background-size: 100%;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+}
+
+div[class="open8"] {
+    background-image: url("icons/Mine2.9tile8.png");
+    background-size: 100%;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+}
+
+div[class="flagged"] {
+    background-image: url("icons/Minesweeper_flag_generic.svg.png");
+    background-size: 100%;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+}
+
+div[class="openedMine"] {
+    background-image: url("icons/Mine2.9tilebombclicked.png");
+    background-size: 100%;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+}
+
+#settings, #saveGame, #loadGame  {
+    /*text-align: left;*/
+    cursor: pointer;
+    text-decoration: underline;
+    color: blue;
+}
